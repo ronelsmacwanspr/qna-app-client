@@ -1,0 +1,18 @@
+.headerWrapper{
+    width: 100%;
+    background-color: #F0F8EA;
+    line-height: 5vh;
+    font-family: 'Manrope', sans-serif;
+    text-align: center;
+   display: flex;
+   justify-content: center;  
+   padding: 24px;
+}
+
+.headerTitle{
+    
+    margin: 0;
+    width: 100%;
+    
+}
+

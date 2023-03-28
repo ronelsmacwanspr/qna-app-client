@@ -1,0 +1,14 @@
+.qnaFeedWrapper{
+    display: flex;
+    flex-direction: column;
+    gap : 24px;
+    padding: 24px;
+    font-family: 'Manrope','sans-serif';
+    /* width: 50%; */
+}
+
+@media (max-width : 400px){
+    .qnaFeedWrapper{
+        padding: 12px;
+    }
+}

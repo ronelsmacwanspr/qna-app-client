@@ -1,0 +1,1 @@
+QnA app which allows to post/ask questions/answers. Also can read feed of questions. uses Local storage.

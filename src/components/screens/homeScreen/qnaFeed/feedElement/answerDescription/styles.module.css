@@ -1,0 +1,9 @@
+.answerDescription{
+    max-height: 135px;
+    overflow: hidden; /* for lines which overflow in home feed answer*/
+    width: 100%;
+    max-width: 65ch;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+}

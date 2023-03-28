@@ -1,0 +1,27 @@
+.header{
+    background-color:#FFFDDE;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid#4a4a42;
+    display: flex;
+    align-items: center;
+   position: sticky;
+   top:0px;
+   left:0px;
+   width: 100%;
+   box-sizing: border-box;
+  line-height: 5vh;
+  padding: 24px;
+  font-size: 1.75rem;
+  text-transform: capitalize;
+}
+
+.leftHeader{
+    width: min-content;
+    display: flex;
+   flex-direction: row;
+   width: 20%;
+   gap: 12px;
+   justify-content: space-between;
+   
+}

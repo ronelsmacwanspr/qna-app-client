@@ -1,0 +1,38 @@
+.voteWrapper{
+    max-height: 27px;
+   padding-top: 12px;
+    display: flex;
+   width: 100%;
+    display: flex;
+   
+}
+
+.upvote,.downvote{
+    cursor: pointer;
+    border : 1px solid #00425A;
+    border-radius: 5px;
+}
+
+
+.downvote{
+    margin-left : 12px;
+   
+} 
+
+.upvoteSelected , .downvoteSelected{
+    background-color: #00425A;
+    color: white;
+    cursor: pointer;
+    border : 1px solid #00425A;
+    border-radius: 5px;
+}
+
+.downvoteSelected{ 
+    margin-left: 12px;
+   
+}
+
+.count{
+    display: inline-block;
+    margin-left: 2px;
+}

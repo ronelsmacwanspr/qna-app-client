@@ -1,0 +1,50 @@
+.wrapper{
+   display: flex;
+   gap : 24px; 
+   min-height: 100px;  
+   flex-wrap: wrap;
+   font-family: 'Manrope' , 'sans-serif';
+  
+}
+
+.type{
+    min-width: 100px;
+    max-width: 200px;
+    font-size: 1.1rem;
+    /* border : 1px solid green; */
+    flex-shrink: 100;
+    padding: 12px;
+}
+
+.values{
+    flex-grow: 100;
+    font-size: 1.1rem;
+    min-width: 100px;
+    max-height: 300px;
+    text-align: right;
+    padding: 12px;
+    overflow: auto;
+}
+
+.span{
+    display: inline-block;
+   max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 4px;
+    
+}
+
+.span:hover{
+    text-decoration: underline;
+}
+
+@media (max-width : 600px) {
+    .values{
+        text-align: left;
+    }
+    .wrapper{
+        gap : 10px;
+    }
+}

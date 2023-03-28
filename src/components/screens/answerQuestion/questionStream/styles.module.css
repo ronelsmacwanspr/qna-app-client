@@ -1,0 +1,26 @@
+.streamCard{
+    max-height: 450px;
+    display : flex;
+    align-items: center;
+    gap : 12px;
+   max-width: 70ch;
+   width: 100%;
+}
+
+.left{
+    flex : 1;
+    max-width: 60ch;
+    padding: 12px;
+    background-color: #F0ECCF;
+    border: 1px solid currentColor;
+    border-radius: 10px;
+}
+
+
+.main{
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap : 24px;
+}

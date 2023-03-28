@@ -1,0 +1,12 @@
+.button{
+    margin : auto;
+    cursor: pointer;
+    font-size: 1.2rem;
+   font-family: 'Manrope', sans-serif;
+   padding : 8px;
+}
+
+.button:hover{
+    color: white;
+    background-color: rgb(20, 82, 120);
+}

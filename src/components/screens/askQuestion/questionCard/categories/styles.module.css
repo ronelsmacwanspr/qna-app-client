@@ -1,0 +1,35 @@
+.categories{
+    border : 1px solid black;
+    border-radius: 6px;
+    padding: 12px;
+  
+}
+
+
+.renderDiv{
+    border : 1px solid black;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap:8px;
+    
+}
+
+.categoriesWrapper{
+    width:90%;
+    padding: 2px;
+    font-family: 'Manrope', sans-serif;
+}
+
+.addButton{
+    cursor: pointer;
+   font-family: 'Manrope', sans-serif;
+   font-size: 1.1rem;
+}
+
+.label{
+    font-family: 'Manrope', sans-serif;
+}
+

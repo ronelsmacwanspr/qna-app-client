@@ -1,0 +1,17 @@
+.headerTitle{
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    
+    /* font-weight : 400;*/
+}
+
+.headerWrapper{
+    display: flex;
+    text-align: center;
+    width: 100%;
+    padding: 24px;
+    line-height: 5vh;
+    background-color: #F0F8EA;
+}
