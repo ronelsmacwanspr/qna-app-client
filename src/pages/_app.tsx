@@ -7,11 +7,15 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 export default function App({ Component, pageProps }: AppProps) {
   enableMapSet();
+
   const token_id =
-    typeof window !== "undefined" ? localStorage.getItem("token_id") : null;
+    typeof window !== "undefined" ? sessionStorage.getItem("token_id") : null;
+
+  const cache = new InMemoryCache();
+
   const client = new ApolloClient({
     uri: "http://localhost:4000/",
-    cache: new InMemoryCache(),
+    cache: cache,
     connectToDevTools: true,
     headers: {
       authorization: token_id as string,

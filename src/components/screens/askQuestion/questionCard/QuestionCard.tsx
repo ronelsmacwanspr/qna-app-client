@@ -2,16 +2,14 @@ import QuestionCardDescription from "./description";
 import styles from "./styles.module.css";
 import QuestionCardTitle from "./title";
 import QuestionCardCategories from "./categories";
-import { useState } from "react";
 import { Question } from "../../../../globalClasses/Question";
 import SubmitButton from "../../../submitButton/SubmitButton";
-import { useLocalStorage } from "../../../../localStorage/localStorage";
-import { getUser, updateUser } from "../../../../utils";
-import { STATE_KEYS } from "../../../../constants";
-import { dummyQuestions } from "../../../../data";
 import { useImmer } from "use-immer";
 
 import { QuestionType } from "../../../../globalClasses/Question";
+
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_QUESTION, GET_LOGGED_IN_USER } from "../../../../queries";
 
 const TITLE_CHAR_LIMIT = 300;
 
@@ -24,22 +22,32 @@ export default function QuestionCard() {
       categories: [],
       title: "",
       description: "",
-      answers: [],
+      answerIds: [],
     })
   );
-  const [data, setData] = useLocalStorage<QuestionType[]>(
-    STATE_KEYS.data,
-    dummyQuestions
-  );
 
-  console.log("data ", data);
+  const [
+    addQuestion,
+    {
+      loading: addQuestionLoading,
+      error: addQuestionError,
+      data: addedQuestionData,
+    },
+  ] = useMutation(ADD_QUESTION);
 
-  function handleSubmit(): boolean {
-    const user = getUser();
+  const {
+    data: userData,
+    loading: userLoading,
+    error: userError,
+  } = useQuery(GET_LOGGED_IN_USER);
 
-    if (!user) {
-      throw new Error("No user exists yet");
-    }
+  const userId = userData?.loggedInUser.id;
+  console.log("userId", userId);
+
+  console.log("datas", userData, addedQuestionData);
+  console.log("errors", addQuestionError, userError);
+
+  async function handleSubmit(): Promise<boolean> {
     // run validations!
 
     // Title validation
@@ -82,35 +90,30 @@ export default function QuestionCard() {
     // already done in category Component
     const categories = question.categories;
 
-    // create ID
-    const id = `q-${data.length}`;
-    const date = new Date();
-    const datePosted = `${date.getDate()}/${
-      date.getMonth() + 1
-    }/${date.getFullYear()}`;
-    const userId = user.id;
+    const _question = {
+      userId,
+      title,
+      description,
+      categories,
+    };
 
-    const _question: QuestionType = new Question({
-      id: id,
-      userId: userId,
-      datePosted: datePosted,
-      title: title,
-      description: description,
-      categories: categories,
-      answers: [],
-    });
-    console.log("_question", _question);
-
-    // using immer
-
-    setData((draft) => {
-      draft.push(_question);
-    });
-
-    user.questions.push(_question.id);
-    updateUser(user);
+    // add question to server
+    await addQuestion({ variables: { inputQuestion: _question } });
 
     return true;
+  }
+
+  if (userLoading || addQuestionLoading) {
+    return <p>Posting Question...</p>;
+  }
+
+  if (userError || addQuestionError) {
+    return (
+      <p>
+        Something went wrong!{" "}
+        {" " + userError?.message + " " + addQuestionError?.message}
+      </p>
+    );
   }
 
   return (
@@ -133,8 +136,8 @@ export default function QuestionCard() {
         />
         <SubmitButton
           handleSubmit={handleSubmit}
-          successMessage={"Question Posted Successfully!"}
-          name={"POST QUESTION"}
+          successMessage="Question Posted Successfully!"
+          name="POST QUESTION"
         />
       </div>
     </main>

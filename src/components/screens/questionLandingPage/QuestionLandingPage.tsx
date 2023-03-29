@@ -1,82 +1,47 @@
 import { useRouter } from "next/router";
-import { useLocalStorage } from "../../../localStorage/localStorage";
-import AnswerCard from "../../answerCard";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./styles.module.css";
 import HomeButton from "../../homeButton";
-import { STATE_KEYS } from "../../../constants";
-import { dummyAnswers, dummyQuestions } from "../../../data";
-import { getAnswerWithId } from "../../../utils";
 
 import { QuestionType } from "../../../globalClasses/Question";
-import { AnswerType } from "../../../globalClasses/Answer";
+
+import { useLazyQuery } from "@apollo/client";
+import { GET_QUESTION_TITLE_AND_DESCRIPTION } from "../../../queries";
+import AnswerPortion from "../../answerPortion";
 
 export default function QuestionLandingPage() {
   const router = useRouter();
-  const [data, setData] = useLocalStorage<QuestionType[]>(
-    STATE_KEYS.data,
-    dummyQuestions
-  );
-  const [answers, setAnswers] = useLocalStorage<AnswerType[]>(
-    STATE_KEYS.answers,
-    dummyAnswers
-  );
+  let qid = router.query?.qid;
 
-  const [qid, setQid] = useState<string>(router.query?.qid as string);
+  const [
+    getQuestion,
+    { loading: loadingQuestion, error: questionError, data: questionData },
+  ] = useLazyQuery(GET_QUESTION_TITLE_AND_DESCRIPTION);
 
-  let index: null | number = null,
-    question: null | QuestionType = null,
-    answersToDisplay: JSX.Element[] = [],
-    questionTitle: string = "Loading...",
-    questionDescription: string = "Loading...",
-    inValid: boolean = false;
-
-  console.log("ready-router", router.isReady);
+  let question: undefined | QuestionType = questionData?.question,
+    questionTitle: string = question?.title || "",
+    questionDescription: undefined | string = question?.description || "";
+  console.log(" loading ", loadingQuestion);
+  console.log("ready-router", router.isReady, "qid", qid);
+  console.log("questionData", questionData);
 
   useEffect(() => {
     if (router.isReady) {
-      const _qid = router.query.qid as string;
-      setQid(_qid);
+      qid = router.query.qid;
+      getQuestion({ variables: { questionId: qid } });
     }
-  }, [router.isReady]);
+  }, []);
 
-  if (qid && data) {
-    if (qid.length < 3 || qid[0] != "q" || qid[1] != "-") {
-      inValid = true;
-    } else {
-      index = Number(qid.slice(2));
-
-      console.log("index ", index);
-
-      if (index < data.length) {
-        question = data[index];
-
-        questionTitle = question.title;
-
-        questionDescription = question.description;
-
-        data[index].answerIds.forEach((answerId) => {
-          const answer = getAnswerWithId(answers, answerId);
-          answersToDisplay.push(
-            <AnswerCard
-              key={answer.id}
-              answer={answer}
-              setAnswers={setAnswers}
-            />
-          );
-        });
-      } else {
-        inValid = true;
-      }
-    }
+  if (loadingQuestion) {
+    return <p>Getting question info..</p>;
   }
 
-  console.log(" query ", router.query);
-
-  // console.log("quees ", question);
-
-  if (inValid) {
-    return <h2>No such page exists {":("}</h2>;
+  if (questionError) {
+    return (
+      <p>
+        Something went wrong! <i>{questionError.message}</i>
+      </p>
+    );
   }
 
   return (
@@ -91,8 +56,15 @@ export default function QuestionLandingPage() {
 
         <hr className={styles.hr} />
       </div>
-
-      {answersToDisplay}
+      <div className={styles.answerPortion}>
+        {questionData && (
+          <AnswerPortion
+            questionId={question!.id}
+            count={100}
+            clampDescription={false}
+          />
+        )}
+      </div>
     </div>
   );
 }

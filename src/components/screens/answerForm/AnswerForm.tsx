@@ -1,74 +1,62 @@
 import { useEffect, useState } from "react";
-import { Answer } from "../../../globalClasses/Answer";
 import { useRouter } from "next/router";
 import styles from "./styles.module.css";
 import SubmitButton from "../../submitButton";
-import { getUser, updateUser, getNewAnswerId } from "../../../utils";
-import { useLocalStorage } from "../../../localStorage/localStorage";
-import { STATE_KEYS } from "../../../constants";
-import { dummyAnswers, dummyQuestions } from "../../../data";
 
-import { QuestionType } from "../../../globalClasses/Question";
-import { AnswerType } from "../../../globalClasses/Answer";
+import { useMutation, useLazyQuery, useQuery } from "@apollo/client";
+import {
+  GET_LOGGED_IN_USER,
+  ADD_ANSWER,
+  GET_QUESTION_TITLE_AND_DESCRIPTION,
+} from "../../../queries";
 
 export default function AnswerForm() {
   const [value, setValue] = useState<string>("");
-  const [hydrated, setHydrated] = useState<boolean>(false);
 
-  const [data, setData] = useLocalStorage<QuestionType[]>(
-    STATE_KEYS.data,
-    dummyQuestions
-  );
-  const [answers, setAnswers] = useLocalStorage<AnswerType[]>(
-    STATE_KEYS.answers,
-    dummyAnswers
-  );
+  const {
+    data: userData,
+    loading: userLoading,
+    error: userError,
+  } = useQuery(GET_LOGGED_IN_USER);
+  const [
+    addAnswer,
+    { loading: postingAnswer, error: answerError, data: answerData },
+  ] = useMutation(ADD_ANSWER);
+  const [
+    getQuestion,
+    { data: questionData, error: questionError, loading: questionLoading },
+  ] = useLazyQuery(GET_QUESTION_TITLE_AND_DESCRIPTION);
 
   const router = useRouter();
-  const [qid, setQid] = useState<string>(router.query?.qid as string);
-
-  let user = getUser();
-
-  let inValid = false,
-    questionTitle = null,
-    questionDescription = null,
-    index: null | number = null;
 
   useEffect(() => {
     if (router.isReady) {
-      setQid(router.query.qid as string);
+      getQuestion({ variables: { questionId: router.query.qid } });
     }
   }, [router.isReady]);
 
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
+  // let user = getUser();
 
-  if (qid) {
-    if (qid.length < 3 || qid[0] != "q" || qid[1] != "-") {
-      inValid = true;
-    } else {
-      index = Number(qid.slice(2));
-      if (index < data.length) {
-        questionTitle = data[index].title;
-        questionDescription = data[index].description;
-      } else {
-        inValid = true;
-      }
-    }
-  }
+  const questionTitle = questionData?.question?.title,
+    questionDescription = questionData?.question?.description,
+    questionId = questionData?.question?.id;
 
-  function handleSubmit() {
-    if (!user) {
-      throw new Error("No User exisys yet");
+  async function handleSubmit(): Promise<boolean> {
+    console.log("userData in handle submit", userData);
+
+    if (!userData) {
+      console.log("ronels");
+      throw new Error("No User exists yet");
     }
     if (!value || value.trim() == "") {
       alert("Please enter non-empty answer!");
       return false;
     }
 
+    const user = userData.loggedInUser;
+
     const stringArray = value.split(" ").filter((item) => item != "");
-    console.log(stringArray);
+    // console.log(stringArray);
     let answerDescription = "";
 
     for (let i = 0; i < stringArray.length; ++i) {
@@ -85,50 +73,54 @@ export default function AnswerForm() {
       }
     }
 
-    const date = new Date(),
-      day = date.getDate(),
-      month = date.getMonth() + 1,
-      year = date.getFullYear();
-    // push answer state in question
-
-    const addAnswer: AnswerType = new Answer({
-      id: getNewAnswerId(answers),
+    const inputAnswer = {
       userId: user.id,
-      questionId: qid,
+      questionId: questionId,
       description: answerDescription,
-      datePosted: `${day}/${month}/${year}`,
-      numUpvotes: 0,
-      numDownvotes: 0,
-    });
+    };
 
-    console.log(addAnswer);
-
-    setData((draft) => {
-      draft[index as number].answerIds.push(addAnswer.id);
-    });
-
-    setAnswers((draft) => {
-      draft.push(addAnswer);
-    });
-
-    user.answers.push(addAnswer.id);
-    updateUser(user);
+    await addAnswer({ variables: { inputAnswer } });
 
     return true;
   }
 
-  if (inValid) {
-    return <h2>No such page exists {":("}</h2>;
+  if (answerError || questionError || userError) {
+    return (
+      <p>
+        Something went wrong!
+        <i>
+          {" " +
+            answerError?.message +
+            " " +
+            questionError?.message +
+            " " +
+            userError?.message}
+        </i>
+      </p>
+    );
+  }
+  if (postingAnswer) {
+    return <p>Posting your answer...</p>;
   }
 
-  if (!hydrated) return null;
+  if (userLoading) {
+    return <p>Loading your details. Please wait...</p>;
+  }
 
   return (
     <div className={styles.outerWrapper}>
       <main className={styles.main}>
-        <div className={styles.title}>{questionTitle}</div>
+        <div className={styles.title}>
+          {questionLoading ? <i>Loading title..</i> : questionTitle}
+        </div>
 
-        <div>{questionDescription}</div>
+        <div>
+          {questionLoading ? (
+            <i>Loading description...</i>
+          ) : (
+            questionDescription
+          )}
+        </div>
 
         <div className={styles.inputWrapper}>
           <textarea
@@ -140,8 +132,8 @@ export default function AnswerForm() {
 
         <SubmitButton
           handleSubmit={handleSubmit}
-          successMessage={"Yeah! Answer posted"}
-          name={"POST ANSWER"}
+          successMessage="Yeah! Answer posted"
+          name="POST ANSWER"
         />
       </main>
     </div>

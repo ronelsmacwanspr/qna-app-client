@@ -1,35 +1,28 @@
 import styles from "./styles.module.css";
-import QuestionTitle from "./questionTitle";
-import QuestionDescription from "./questionDescription";
-import AnswerDescription from "./answerDescription";
-import Votes from "../../../../votes";
-import Link from "next/link";
-import React from "react";
-import { QuestionType } from "../../../../../globalClasses/Question";
-import { AnswerType } from "../../../../../globalClasses/Answer";
+import { memo } from "react";
+
+import AnswerPortion from "../../../../answerPortion/AnswerPortion";
+import QuestionPortion from "./questionPortion";
 
 type FeedElementPropsType = {
-  question: QuestionType;
-  answer: AnswerType | null;
+  questionId: string;
 };
 
-function FeedElement({ question, answer }: FeedElementPropsType) {
-  const answerDescription =
-      question.answerIds.length == 0 ? null : answer!.description,
-    questionDescription = !question.description ? null : question.description;
+// add answer only to props
 
-  const location = `/q/${question.id}`;
+function FeedElement({ questionId }: FeedElementPropsType) {
+  // get first answer for question prop
 
   return (
     <div className={styles.feedElement}>
-      <Link href={location}>
-        <QuestionTitle questionTitle={question.title} />
-      </Link>
-      <QuestionDescription questionDescription={questionDescription} />
-      <AnswerDescription answerDescription={answerDescription} />
-      {answer ? <Votes answer={answer} /> : null}
+      <QuestionPortion questionId={questionId} />
+      <AnswerPortion
+        questionId={questionId}
+        count={1}
+        clampDescription={true}
+      />
     </div>
   );
 }
 
-export default React.memo(FeedElement);
+export default memo(FeedElement);

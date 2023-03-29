@@ -2,7 +2,7 @@ import { getUser } from "../utils";
 import { ReactElement, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
-import { GET_USER_ID, GET_LOGGED_IN_USER } from "../queries";
+import { GET_LOGGED_IN_USER } from "../queries";
 
 export const RedirectToLoginScreenIfUserAbsent = ({
   children,
@@ -10,12 +10,6 @@ export const RedirectToLoginScreenIfUserAbsent = ({
   children: JSX.Element;
 }): JSX.Element => {
   const router = useRouter();
-
-  // const {
-  //   data: userData,
-  //   loading: userLoading,
-  //   error: userError,
-  // } = useQuery(GET_USER_ID, { variables: { userId: 0 } });
 
   const {
     data: userData,
@@ -40,10 +34,11 @@ export const RedirectToLoginScreenIfUserAbsent = ({
   const { pathname } = router;
   const userId = userData?.loggedInUser?.id;
   console.log("userId", userId);
-  if (userId >= 0) {
-    console.log("pushin to router the feed page");
-    if (pathname !== "/feed") router.push("/feed");
-  } else if (pathname !== "/userLogin") router.push("/userLogin");
+
+  if (typeof userId !== "number") {
+    console.log("pushin to router the login page");
+    if (pathname !== "/userLogin") router.push("/userLogin");
+  }
 
   return <div>{children}</div>;
 };

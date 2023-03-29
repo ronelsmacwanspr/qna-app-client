@@ -3,6 +3,7 @@ import { useState } from "react";
 import { VOTE_ACTIONS as actions } from "../../constants";
 
 import { AnswerType } from "../../globalClasses/Answer";
+
 import { useQuery } from "@apollo/client";
 import {
   ADD_UPVOTED_ANSWERID_IN_USER_DATA,
@@ -18,10 +19,6 @@ type VotesPropsType = {
   answer: AnswerType;
 };
 
-/*
-no setans
-*/
-
 export default function Votes({ answer }: VotesPropsType) {
   const {
     data: userData,
@@ -31,43 +28,23 @@ export default function Votes({ answer }: VotesPropsType) {
 
   const [
     addUpvotedAnswerId,
-    { loading: loadingAddUpvote, error: errorAddUpvote, data: dataAddUpvote },
-  ] = useMutation(ADD_UPVOTED_ANSWERID_IN_USER_DATA, {
-    refetchQueries: [{ query: GET_LOGGED_IN_USER }],
-  });
+    { loading: loadingAddUpvote, error: errorAddUpvote },
+  ] = useMutation(ADD_UPVOTED_ANSWERID_IN_USER_DATA);
 
   const [
     addDownvotedAnswerId,
-    {
-      loading: loadingAddDownvote,
-      error: errorAddDownvote,
-      data: dataAddDownvote,
-    },
-  ] = useMutation(ADD_DOWNVOTED_ANSWERID_IN_USER_DATA, {
-    refetchQueries: [{ query: GET_LOGGED_IN_USER }],
-  });
+    { loading: loadingAddDownvote, error: errorAddDownvote },
+  ] = useMutation(ADD_DOWNVOTED_ANSWERID_IN_USER_DATA);
 
   const [
     removeUpvotedAnswerId,
-    {
-      loading: loadingRemoveUpvote,
-      error: errorRemoveUpvote,
-      data: dataRemoveUpvote,
-    },
-  ] = useMutation(REMOVE_UPVOTED_ANSWERID_IN_USER_DATA, {
-    refetchQueries: [{ query: GET_LOGGED_IN_USER }],
-  });
+    { loading: loadingRemoveUpvote, error: errorRemoveUpvote },
+  ] = useMutation(REMOVE_UPVOTED_ANSWERID_IN_USER_DATA);
 
   const [
     removeDownvotedAnswerId,
-    {
-      loading: loadingRemoveDownvote,
-      error: errorRemoveDownvote,
-      data: dataRemoveDownvote,
-    },
-  ] = useMutation(REMOVE_DOWNVOTED_ANSWERID_IN_USER_DATA, {
-    refetchQueries: [{ query: GET_LOGGED_IN_USER }],
-  });
+    { loading: loadingRemoveDownvote, error: errorRemoveDownvote },
+  ] = useMutation(REMOVE_DOWNVOTED_ANSWERID_IN_USER_DATA);
 
   let user = userData?.loggedInUser;
   console.log("user in votes component", user);
@@ -170,6 +147,30 @@ export default function Votes({ answer }: VotesPropsType) {
       return styles.downvoteSelected;
     }
     return styles.downvote;
+  }
+
+  if (
+    errorAddDownvote ||
+    errorAddUpvote ||
+    errorGettingLoggInUser ||
+    errorRemoveDownvote ||
+    errorRemoveUpvote
+  ) {
+    return (
+      <p>
+        Something went wrong!
+        {" " +
+          errorAddDownvote?.message +
+          " " +
+          errorAddUpvote?.message +
+          " " +
+          errorGettingLoggInUser +
+          " " +
+          errorRemoveDownvote +
+          " " +
+          errorRemoveUpvote}
+      </p>
+    );
   }
 
   return (

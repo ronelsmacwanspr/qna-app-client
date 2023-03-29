@@ -18,7 +18,7 @@ function AnswerCard({ answer, setAnswers }: AnswerCardPropsType) {
       <div>
         <div>{answer.description}</div>
 
-        <Votes answer={answer} setAnswers={setAnswers} />
+        <Votes answer={answer} />
       </div>
     </div>
   );

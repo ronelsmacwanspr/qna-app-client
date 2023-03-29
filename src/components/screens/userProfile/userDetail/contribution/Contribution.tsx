@@ -1,87 +1,27 @@
-import { useLocalStorage } from "../../../../../localStorage/localStorage";
 import Link from "next/link";
 
 import styles from "./styles.module.css";
-import { getAnswerWithId, getUser } from "../../../../../utils";
-import {
-  STATE_KEYS,
-  UserKeys,
-  USER_PROFILE_FIELDS,
-} from "../../../../../constants";
-import { dummyAnswers, dummyQuestions } from "../../../../../data";
-
-import { QuestionType } from "../../../../../globalClasses/Question";
-import { AnswerType } from "../../../../../globalClasses/Answer";
+import { USER_PROFILE_FIELDS } from "../../../../../constants";
 
 type ContributionPropsType = {
   type: string;
+  contribution: [
+    { text: string; href: { pathname: string; query: { qid: string } } }
+  ];
 };
 
 export default function Contribution({
   type,
+  contribution,
 }: ContributionPropsType): JSX.Element | null {
-  const [data, setData] = useLocalStorage<QuestionType[]>(
-    STATE_KEYS.data,
-    dummyQuestions
-  );
-  const [answers, setAnswers] = useLocalStorage<AnswerType[]>(
-    STATE_KEYS.answers,
-    dummyAnswers
-  );
-
-  let user = getUser();
-
-  console.log("user in contribution is ", user);
-  if (!user || !data) {
-    return null;
-  }
-
   const values: JSX.Element[] = [];
-
-  function getValue(query: string, id: string): string {
-    let result: string = "";
-    if (query == UserKeys.questions) {
-      for (const question of data) {
-        if (question.id == id) {
-          result = question.title;
-          break;
-        }
-      }
-    } else {
-      console.assert(query == UserKeys.answers);
-
-      const answer = getAnswerWithId(answers, id);
-      result = answer.description;
-    }
-
-    return result;
-  }
-
   let i = 0;
-  const userVals = user[type] as string[];
-  console.log(userVals , type);
+  for (const value of contribution) {
+    const { text } = value;
 
-  for (const value of userVals) {
-    //value is string 'a-23' , 'q-35' etc
-
-    // console.log("value " , value);
-
-    let index = Number(value.slice(2));
-
-    if (type == UserKeys.answers) {
-      let found = false;
-      const answer = getAnswerWithId(answers, value);
-      index = Number(answer.questionId.slice(2));
-    }
-    const qid = `q-${index}`;
-    let str = getValue(type, value);
-
-    if (i > 0) {
-      str = ", " + str;
-    }
     values.push(
-      <Link key={value} href={{ pathname: "/q/[qid]", query: { qid: qid } }}>
-        <span className={styles.span}>{str}</span>
+      <Link key={value.href.query.qid} href={value.href}>
+        <span className={styles.span}>{i > 0 ? ", " + text : text}</span>
       </Link>
     );
 

@@ -10,23 +10,23 @@ export const VOTE_ACTIONS: { [index: string]: string } = {
   downvote: "downvote",
 };
 
-export const UserKeys: { [index: string]: string } = {
+export const UserKeys = {
   id: "id",
   name: "name",
   from: "from",
   bio: "bio",
-  questions: "questions",
-  answers: "answers",
+  questionIds: "questionIds",
+  answerIds: "answerIds",
 };
 
 export const USER_PROFILE_FIELDS = {
-  inputKeys: [UserKeys.name, UserKeys.from, UserKeys.bio],
+  primitiveFields: [UserKeys.id, UserKeys.name, UserKeys.from, UserKeys.bio],
   keysLabel: {
     [UserKeys.id]: "ID",
     [UserKeys.name]: "Name",
     [UserKeys.from]: "From",
     [UserKeys.bio]: "Bio",
-    [UserKeys.questions]: "Questions",
-    [UserKeys.answers]: "Answers",
+    [UserKeys.questionIds]: "Questions",
+    [UserKeys.answerIds]: "Answers",
   },
 };

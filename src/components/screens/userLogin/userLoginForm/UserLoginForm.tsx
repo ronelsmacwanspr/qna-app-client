@@ -16,7 +16,7 @@ const PLACEHOLDER = {
 
 import { UserType } from "../../../../globalClasses/User";
 import { ChangeEvent, useState } from "react";
-import { ADD_USER, GET_USER_ID } from "../../../../queries";
+import { ADD_USER } from "../../../../queries";
 
 import { useMutation, useQuery } from "@apollo/client";
 
@@ -84,7 +84,7 @@ const UserLoginForm = () => {
     const { data } = await addUser({ variables: { inputUser: _user } });
     console.log("added to backend ", data);
     if (typeof window !== "undefined") {
-      localStorage.setItem("token_id", data.addUser.id);
+      sessionStorage.setItem("token_id", data.addUser.id);
     }
     return true;
   };
@@ -100,7 +100,7 @@ const UserLoginForm = () => {
   }
 
   let render = [];
-  for (const _key of USER_PROFILE_FIELDS.inputKeys) {
+  for (const _key of USER_PROFILE_FIELDS.primitiveFields) {
     render.push(
       <TextInputField
         key={_key}

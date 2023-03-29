@@ -1,0 +1,8 @@
+.answerWithVotes {
+  display: flex;
+  flex-direction: column;
+  background-color: #d1fff3;
+  padding: var(--padding-for-answer);
+  border: var(--border-for-answer) solid;
+  border-radius: var(--border-radius-for-answer);
+}

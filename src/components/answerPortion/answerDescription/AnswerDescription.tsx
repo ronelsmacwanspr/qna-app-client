@@ -8,8 +8,6 @@ export default function AnswerDescription({
   answerDescription,
 }: AnswerDescriptionPropsType) {
   return (
-    <div className={styles.answerDescription}>
-      {answerDescription || "No answers yet..."}
-    </div>
+    <div className={styles.answerDescription}>{answerDescription || ""}</div>
   );
 }
