@@ -2,13 +2,8 @@
 
 import FeedElement from "./feedElement";
 import styles from "./styles.module.css";
-import { useLocalStorage } from "../../../../localStorage/localStorage";
-import { STATE_KEYS } from "../../../../constants";
-import { dummyAnswers, dummyQuestions } from "../../../../data";
-import { getAnswerWithId } from "../../../../utils";
 
 import { QuestionType } from "../../../../globalClasses/Question";
-import { AnswerType } from "../../../../globalClasses/Answer";
 
 import { GET_QUESTIONS_IDS } from "../../../../queries";
 import { useQuery } from "@apollo/client";

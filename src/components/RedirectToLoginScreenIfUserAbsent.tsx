@@ -1,5 +1,3 @@
-import { getUser } from "../utils";
-import { ReactElement, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { GET_LOGGED_IN_USER } from "../queries";

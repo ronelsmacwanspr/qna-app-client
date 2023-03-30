@@ -7,7 +7,7 @@ export type QuestionType = {
   description: string;
   answerIds: string[];
 };
-// export const Question = function ({
+
 //   id,
 //   userId,
 //   datePosted,

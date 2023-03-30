@@ -1,11 +1,4 @@
-export const COMPARE_EQUAL_KEYS: string[] = ["userId", "title", "description"];
-
-export const STATE_KEYS: { [index: string]: string } = {
-  data: "data",
-  answers: "answers",
-};
-
-export const VOTE_ACTIONS: { [index: string]: string } = {
+export const VOTE_ACTIONS = {
   upvote: "upvote",
   downvote: "downvote",
 };

@@ -1,7 +1,5 @@
 import QuestionDescription from "./questionDescription";
 import QuestionTitle from "./questionTitle";
-
-import { QuestionType } from "../../../../../../globalClasses/Question";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { GET_QUESTION_TITLE_AND_DESCRIPTION } from "../../../../../../queries";

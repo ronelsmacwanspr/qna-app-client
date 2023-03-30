@@ -1,11 +1,10 @@
-import { useImmer } from "use-immer";
 import { User } from "../../../../globalClasses/User";
 import { TextInputField } from "./textInputField";
 import styles from "./styles.module.css";
 import SubmitButton from "../../../submitButton";
 
 import { USER_PROFILE_FIELDS, UserKeys } from "../../../../constants";
-import { getUser, updateUser } from "../../../../utils";
+import { removeExtraSpaces } from "../../../../utils";
 import { useRouter } from "next/router";
 
 const PLACEHOLDER = {
@@ -38,33 +37,7 @@ const UserLoginForm = () => {
 
   const router = useRouter();
 
-  const removeExtraSpaces = (str: string): string => {
-    if (!str) {
-      return "";
-    }
-    let arr = str.split(" ").filter((item) => item != "");
-    let res = "";
-
-    arr.forEach((item, index) => {
-      res += item;
-      if (index != arr.length - 1) {
-        res += " ";
-      }
-    });
-
-    return res;
-  };
-
   const handleSubmit = async (): Promise<boolean> => {
-    // if (getUser()) {
-    //   alert("You are already registered!");
-    //   setTimeout(() => {
-    //     router.push("/");
-    //   }, 1000);
-
-    //   return false;
-    // }
-
     const name = removeExtraSpaces(tempUser.name);
     const from = removeExtraSpaces(tempUser.from);
     const bio = removeExtraSpaces(tempUser.bio);
@@ -101,6 +74,8 @@ const UserLoginForm = () => {
 
   let render = [];
   for (const _key of USER_PROFILE_FIELDS.primitiveFields) {
+    if (_key === UserKeys.id) continue;
+
     render.push(
       <TextInputField
         key={_key}

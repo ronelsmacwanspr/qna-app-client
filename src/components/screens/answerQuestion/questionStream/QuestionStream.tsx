@@ -1,14 +1,9 @@
-import { useLocalStorage } from "../../../../localStorage/localStorage";
 import QuestionTitle from "../../homeScreen/qnaFeed/feedElement/questionPortion/questionTitle";
 import QuestionDescription from "../../homeScreen/qnaFeed/feedElement/questionPortion/questionDescription";
 import AddAnswerButton from "./addAnswerButton";
 import Link from "next/link";
-import { STATE_KEYS } from "../../../../constants";
-import { dummyQuestions } from "../../../../data";
 import styles from "./styles.module.css";
-import { useEffect, useState } from "react";
 
-import { QuestionType } from "../../../../globalClasses/Question";
 import { GET_QUESTION_TITLE_DESCRIPTION_ANSIDS } from "../../../../queries";
 import { useQuery } from "@apollo/client";
 

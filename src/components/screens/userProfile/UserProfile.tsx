@@ -1,16 +1,13 @@
 import UserDetail from "./userDetail";
 import Contribution from "./userDetail/contribution";
-import { useState } from "react";
 
 import styles from "./styles.module.css";
-import { useEffect } from "react";
-import { getUser } from "../../../utils";
 
 import { GET_LOGGEDIN_USER_PROFILE_FIELDS } from "../../../queries";
 import { useQuery } from "@apollo/client";
 import { USER_PROFILE_FIELDS, UserKeys } from "../../../constants";
 import { QuestionType } from "../../../globalClasses/Question";
-import { Answer, AnswerType } from "../../../globalClasses/Answer";
+import { AnswerType } from "../../../globalClasses/Answer";
 
 export default function UserProfile() {
   const {
