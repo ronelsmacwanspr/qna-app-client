@@ -3,6 +3,7 @@ import { memo } from "react";
 
 import AnswerPortion from "../../../../answerPortion/AnswerPortion";
 import QuestionPortion from "./questionPortion";
+import { useRouter } from "next/router";
 
 type FeedElementPropsType = {
   questionId: string;

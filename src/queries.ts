@@ -41,11 +41,39 @@ export const GET_FIRST_N_ANSWERS_FOR_QUESTIONID = gql`
 `;
 
 export const GET_QUESTION_TITLE_AND_DESCRIPTION = gql`
-  query GET_QUESTION_TITLE_AND_DESCRIPTION($questionId: ID!) {
+  query ($questionId: ID!) {
+    question(id: $questionId) {
+      title
+      description
+    }
+  }
+`;
+
+export const GET_QUESTION_FROM_ID = gql`
+  query GET_QUESTION_FROM_ID($questionId: ID!) {
     question(id: $questionId) {
       description
       title
       id
+      answers {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_ANSWER_FROM_ID = gql`
+  query ($answerId: ID!) {
+    answer(id: $answerId) {
+      id
+      datePosted
+      description
+      numUpvotes
+      numDownvotes
+      user {
+        id
+        name
+      }
     }
   }
 `;

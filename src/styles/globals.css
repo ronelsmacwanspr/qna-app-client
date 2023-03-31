@@ -2,6 +2,12 @@
   background-color: red;
 } */
 
-body{
+body {
   margin: 0;
+  background-color: rgb(241, 242, 242);
+  --root-border-width: 2px;
+  --root-border-style: solid;
+  --root-border-radius: 5px;
+  --root-border-color: #dee0e1;
+  font-family: "Manrope", "sans-serif";
 }

@@ -1,26 +1,24 @@
-.titleWrapper{
-    width: 90%;
-    font-size: 1.05rem;
-    display: flex;
-    flex-direction: column;
-   
+.titleWrapper {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
 }
 
-
-.label{
-    margin-right: 12px;
-    font-family: 'Manrope', sans-serif;
-    
+.label {
+  margin-right: 12px;
+  font-family: "Manrope", sans-serif;
 }
 
 .textarea {
-    width : 100%;
-    min-height: 10ch;
-    padding: 6px;
-    font-size: 1.05rem;
-    width: 100%;
-    resize: none;
-    border-radius: 6px;
-    box-sizing: border-box;
+  width: 100%;
+  min-height: 10ch;
+  padding: 6px;
+  font-size: 1.05rem;
+  width: 100%;
+  resize: none;
+  border-radius: var(--root-border-radius);
+  border-width: var(--root-border-width);
+  border-style: var(--root-border-style);
+  border-color: var(--root-border-color);
+  box-sizing: border-box;
 }
-

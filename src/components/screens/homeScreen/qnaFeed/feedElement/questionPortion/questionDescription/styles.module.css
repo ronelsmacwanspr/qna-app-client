@@ -1,17 +1,16 @@
-.questionDescription{
-    font-size: 1.1rem;
-    max-height: 144px;
-    width:100%;
-    overflow: hidden;
-    max-width: 65ch;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-   
+.questionDescription {
+  font-size: 1.3rem;
+  font-weight: 700;
+  max-height: 144px;
+  width: 100%;
+  overflow: hidden;
+  max-width: 65ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
-.line{
-    width: 100%;
-    background-color: burlywood;
-    
+.line {
+  width: 100%;
+  background-color: burlywood;
 }

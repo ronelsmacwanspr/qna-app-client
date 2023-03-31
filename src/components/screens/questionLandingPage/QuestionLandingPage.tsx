@@ -6,9 +6,16 @@ import HomeButton from "../../homeButton";
 import { QuestionType } from "../../../globalClasses/Question";
 
 import { useLazyQuery } from "@apollo/client";
-import { GET_QUESTION_TITLE_AND_DESCRIPTION } from "../../../queries";
-import AnswerPortion from "../../answerPortion";
+import { GET_QUESTION_FROM_ID } from "../../../queries";
+import AnswerCard from "../../answerCard";
+import { AnswerType } from "../../../globalClasses/Answer";
 
+interface QueriedAnswer extends AnswerType {
+  user: {
+    id: number;
+    name: string;
+  };
+}
 export default function QuestionLandingPage() {
   const router = useRouter();
   let qid = router.query?.qid;
@@ -16,7 +23,7 @@ export default function QuestionLandingPage() {
   const [
     getQuestion,
     { loading: loadingQuestion, error: questionError, data: questionData },
-  ] = useLazyQuery(GET_QUESTION_TITLE_AND_DESCRIPTION);
+  ] = useLazyQuery(GET_QUESTION_FROM_ID);
 
   let question: undefined | QuestionType = questionData?.question,
     questionTitle: string = question?.title || "",
@@ -44,6 +51,15 @@ export default function QuestionLandingPage() {
     );
   }
 
+  let answerCards = [<div>No answers yet</div>];
+
+  if (questionData?.question?.answers?.length) {
+    const answers = questionData.question.answers;
+    answerCards = answers.map((answer: QueriedAnswer) => (
+      <AnswerCard answerId={answer.id} />
+    ));
+  }
+
   return (
     <div className={styles.landingPageWrapper}>
       <div className={styles.questionTitleWrapper}>
@@ -56,15 +72,7 @@ export default function QuestionLandingPage() {
 
         <hr className={styles.hr} />
       </div>
-      <div className={styles.answerPortion}>
-        {questionData && (
-          <AnswerPortion
-            questionId={question!.id}
-            count={100}
-            clampDescription={false}
-          />
-        )}
-      </div>
+      <div className={styles.answerPortion}>{answerCards}</div>
     </div>
   );
 }

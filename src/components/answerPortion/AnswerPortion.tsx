@@ -46,13 +46,16 @@ const AnswerPortion = ({
 
   return answerData.question.firstNAnswers.map(
     (answer: AnswerType, index: number) => (
-      <div className={styles.answerWithVotes}>
-        {clampDescription ? (
-          <AnswerDescription answerDescription={answer.description} />
-        ) : (
-          answer.description
-        )}
-        <Votes answer={answer} />
+      <div className={styles.wrapper}>
+        <div className={styles.answerTopInfo}>Top Answer:</div>
+        <div className={styles.answerWithVotes}>
+          {clampDescription ? (
+            <AnswerDescription answerDescription={answer.description} />
+          ) : (
+            answer.description
+          )}
+          <Votes answer={answer} />
+        </div>
       </div>
     )
   );

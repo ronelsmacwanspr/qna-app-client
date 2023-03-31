@@ -1,24 +1,24 @@
-.descriptionWrapper 
-{
-    width : 90%;
-    display: flex;
-    flex-direction: column;
-    
+.descriptionWrapper {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
 }
 
-.label{
-    font-size: 1.2rem;
-    font-family: 'Manrope', sans-serif;
+.label {
+  font-family: "Manrope", sans-serif;
 }
 
-.textarea{
-    font-size: 1.05rem;
-    border-radius: 6px;
-    width: 40%;
-    min-height: 100px;
-    width: 100%;
-    resize: none;
-    padding: 6px;
-    min-height: 15ch;
-    box-sizing: border-box;
+.textarea {
+  font-size: 1.05rem;
+  width: 40%;
+  min-height: 100px;
+  width: 100%;
+  resize: none;
+  padding: 6px;
+  min-height: 15ch;
+  box-sizing: border-box;
+  border-radius: var(--root-border-radius);
+  border-width: var(--root-border-width);
+  border-style: var(--root-border-style);
+  border-color: var(--root-border-color);
 }

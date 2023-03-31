@@ -1,35 +1,39 @@
-.categories{
-    border : 1px solid black;
-    border-radius: 6px;
-    padding: 12px;
-  
+.categories {
+  border-radius: var(--root-border-radius);
+  border-width: var(--root-border-width);
+  border-style: var(--root-border-style);
+  border-color: var(--root-border-color);
+  border-radius: 6px;
+  padding: 12px;
 }
 
-
-.renderDiv{
-    border : 1px solid black;
-    border-radius: 6px;
-    padding: 12px;
-    margin-bottom: 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap:8px;
-    
+.renderDiv {
+  border-radius: var(--root-border-radius);
+  border-width: var(--root-border-width);
+  border-style: var(--root-border-style);
+  border-color: var(--root-border-color);
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.categoriesWrapper{
-    width:90%;
-    padding: 2px;
-    font-family: 'Manrope', sans-serif;
+.categoriesWrapper {
+  width: 90%;
+  padding: 2px;
 }
 
-.addButton{
-    cursor: pointer;
-   font-family: 'Manrope', sans-serif;
-   font-size: 1.1rem;
+.addButton {
+  cursor: pointer;
+  margin-top: 5px;
+  font-size: 1.1rem;
 }
 
-.label{
-    font-family: 'Manrope', sans-serif;
+.hiddenDiv {
+  display: none;
 }
 
+.visibleDiv {
+  display: block;
+}

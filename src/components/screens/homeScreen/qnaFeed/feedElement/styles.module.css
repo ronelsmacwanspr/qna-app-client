@@ -1,11 +1,14 @@
 .feedElement {
   max-height: 450px;
-  background-color: #d1fff3;
+  background-color: white;
   padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid black;
+  max-width: 70ch;
+  border-style: var(--root-border-style);
+  border-width: var(--root-border-width);
+  border-color: var(--root-border-color);
   border-radius: 12px;
   --border-for-answer: 0;
   --padding-for-answer: 0;

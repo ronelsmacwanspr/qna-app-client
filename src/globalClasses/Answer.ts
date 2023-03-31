@@ -1,4 +1,4 @@
-export type AnswerType = {
+export interface AnswerType {
   id: string;
   questionId: string;
   description: string;
@@ -6,7 +6,7 @@ export type AnswerType = {
   datePosted: string;
   numUpvotes: number;
   numDownvotes: number;
-};
+}
 
 export class Answer {
   static count = 0;

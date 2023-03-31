@@ -1,7 +1,8 @@
-.formWrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
-    padding: 24px;
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  padding: 24px;
+  text-transform: capitalize;
 }

@@ -1,15 +1,14 @@
-.wrapper{
-    background-color:beige;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap:2px;
-    
+.wrapper {
+  background-color: beige;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
-.button{
-    border-radius: 50%;
-    cursor: pointer;
-    
+.button {
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 5px;
 }

@@ -1,17 +1,23 @@
-.answerCardWrapper{
+.answerWithVotes {
+  --padding: 12px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding);
+  /* width: min(55ch, 100% - calc(2 * var(--padding))); */
+  margin-left: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 24px;
+  background-color: white;
+  border-radius: var(--root-border-radius);
+  border-width: var(--root-border-width);
+  border-color: var(--root-border-color);
+  border-style: var(--root-border-style);
+}
 
-   --padding : 12px;
-    display: flex;
-    flex-direction: column;
-    padding : var(--padding);
-    width : min(55ch , 100% - calc(2*var(--padding)));
-    margin-left:auto;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 24px;
-    background-color: #F0ECCF;
-    border: 1px solid currentColor;
-    border-radius: 10px;
-   
-
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 60ch;
+  gap: 2px;
 }

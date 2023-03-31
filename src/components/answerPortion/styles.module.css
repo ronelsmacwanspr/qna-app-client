@@ -1,8 +1,19 @@
 .answerWithVotes {
   display: flex;
   flex-direction: column;
-  background-color: #d1fff3;
   padding: var(--padding-for-answer);
   border: var(--border-for-answer) solid;
   border-radius: var(--border-radius-for-answer);
+  /* white-space: pre-wrap; */
+}
+
+.wrapper {
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.answerTopInfo {
+  font-size: 0.95rem;
+  font-style: italic;
 }

@@ -46,6 +46,20 @@ export default function QuestionCardCategories({
     return true;
   }
 
+  function getStyleIfNoCategories({ type }: { type: "ABSENT" | "PRESENT" }) {
+    if (type === "ABSENT") {
+      if (!categories?.length) {
+        return styles.visibleDiv;
+      }
+      return styles.hiddenDiv;
+    }
+    if (!categories?.length) {
+      return styles.hidden;
+    }
+
+    return styles.renderDiv;
+  }
+
   let categoriesArray: JSX.Element[] = [];
   // Add categories in div
 
@@ -61,14 +75,19 @@ export default function QuestionCardCategories({
     );
   });
 
-  const renderDiv =
-    !categories || categories.length == 0 ? defaultDiv : categoriesArray;
+  const renderDiv = categoriesArray;
 
   return (
     <div className={styles.categoriesWrapper}>
       <label className={styles.label}> Categories </label>
+
       <div className={styles.categories}>
-        <div className={styles.renderDiv}>{renderDiv}</div>
+        <div className={getStyleIfNoCategories({ type: "ABSENT" })}>
+          No categories added yet
+        </div>
+        <div className={getStyleIfNoCategories({ type: "PRESENT" })}>
+          {renderDiv}
+        </div>
         <button className={styles.addButton} onClick={handleAddCategory}>
           Add Category
         </button>

@@ -8,16 +8,16 @@ import { removeExtraSpaces } from "../../../../utils";
 import { useRouter } from "next/router";
 
 const PLACEHOLDER = {
-  [UserKeys.name]: "Please Enter your name",
+  [UserKeys.name]: "What is your name?",
   [UserKeys.from]: "Where are you from?",
-  [UserKeys.bio]: "Tell something about yourself",
+  [UserKeys.bio]: "How would you best describe yourself?",
 };
 
 import { UserType } from "../../../../globalClasses/User";
 import { ChangeEvent, useState } from "react";
 import { ADD_USER } from "../../../../queries";
 
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 const UserLoginForm = () => {
   const [addUser, { data: userData, loading: loadingToUpdateUser, error }] =
@@ -99,7 +99,7 @@ const UserLoginForm = () => {
         <SubmitButton
           handleSubmit={handleSubmit}
           successMessage="You are successfully registered!"
-          name="REGISTER"
+          name="Register"
         />
       </div>
     </main>
