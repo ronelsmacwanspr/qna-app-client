@@ -1,5 +1,6 @@
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
+import { Button } from "@mui/material";
 
 type SubmitButtonPropsType = {
   handleSubmit: () => boolean | Promise<boolean>;
@@ -15,8 +16,10 @@ export default function SubmitButton({
   const router = useRouter();
 
   return (
-    <button
-      className={styles.button}
+    <Button
+      size="medium"
+      variant="contained"
+      // className={styles.button}
       onClick={async () => {
         const success = await handleSubmit();
         if (success) {
@@ -26,6 +29,6 @@ export default function SubmitButton({
       }}
     >
       {name}
-    </button>
+    </Button>
   );
 }

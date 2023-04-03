@@ -10,6 +10,8 @@ import { GET_QUESTION_FROM_ID } from "../../../queries";
 import AnswerCard from "../../answerCard";
 import { AnswerType } from "../../../globalClasses/Answer";
 
+import UserCard from "./userCard/UserCard";
+
 interface QueriedAnswer extends AnswerType {
   user: {
     id: number;
@@ -51,28 +53,38 @@ export default function QuestionLandingPage() {
     );
   }
 
-  let answerCards = [<div>No answers yet</div>];
+  let answerCards = [<div>No answers yet</div>],
+    userName = questionData?.question?.user?.name,
+    questionPostDate = questionData?.question?.datePosted;
 
   if (questionData?.question?.answers?.length) {
     const answers = questionData.question.answers;
     answerCards = answers.map((answer: QueriedAnswer) => (
-      <AnswerCard answerId={answer.id} />
+      <AnswerCard key={answer.id} answerId={answer.id} />
     ));
   }
 
   return (
     <div className={styles.landingPageWrapper}>
-      <div className={styles.questionTitleWrapper}>
-        <HomeButton />
-        <div className={styles.titleText}>{questionTitle}</div>
-      </div>
+      <HomeButton />
 
-      <div className={styles.landingPageDescriptionWrapper}>
-        {questionDescription}
+      {questionData && (
+        <main className={styles.main}>
+          <section className={styles.questionSection}>
+            <div className={styles.title}>
+              <div className={styles.titleText}>{questionTitle}</div>
+            </div>
 
-        <hr className={styles.hr} />
-      </div>
-      <div className={styles.answerPortion}>{answerCards}</div>
+            <div className={styles.descCardWrapper}>
+              <div className={styles.description}>{questionDescription}</div>
+              <i>Author:</i>
+              <UserCard userName={userName} datePosted={questionPostDate} />
+            </div>
+          </section>
+          <hr className={styles.hr} />
+          <div className={styles.answerPortion}>{answerCards}</div>
+        </main>
+      )}
     </div>
   );
 }

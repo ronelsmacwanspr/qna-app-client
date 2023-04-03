@@ -1,43 +1,51 @@
 .outerWrapper {
-    padding: 0px 24px;
-
-}   
-
-.main{
-    display : flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 36px 48px 60px;
-    border: 2px solid;
-    border-radius: 10px;
-    gap : 12px;
-    font-family: 'Manrope', sans-serif;
-    max-width: 75ch;
-    margin: auto;
-    margin-top: 10vh;
-    background-color: #BFDCE5;
-    
+  padding: 0px 24px;
 }
 
-.title{
-    padding-bottom: 24px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    /* line-height: 1.5rem; */
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  border-style: var(--root-border-style);
+  border-radius: var(--root-border-radius);
+  border-color: var(--root-border-color);
+  border-style: var(--root-border-style);
+  gap: 12px;
+  font-family: "Manrope", sans-serif;
+  max-width: 75ch;
+  margin: auto;
+  margin-top: 10vh;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
 }
 
-.inputWrapper{
-    padding: 24px 0;
-    width: 100%;
+.title {
+  font-size: 1.4rem;
 }
 
-.textarea{
-    background-color: rgb(234, 234, 234);
-    width: 100%;
-    resize: none;
-    height: 30vh;
-    border-radius: 10px;
-    padding: 6px;
-    font-family: 'Manrope', sans-serif;
-    font-size: 1.05rem;
+.description {
+  font-size: 1.25rem;
+}
+
+.inputWrapper {
+  width: 100%;
+}
+
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  resize: none;
+  height: 30vh;
+  border-radius: var(--root-border-radius);
+  border-color: var(--root-border-color);
+  padding: 6px;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.05rem;
+
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
+}
+
+.buttonWrapper {
+  margin: auto;
 }

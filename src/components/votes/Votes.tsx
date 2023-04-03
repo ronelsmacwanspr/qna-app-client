@@ -182,7 +182,7 @@ export default function Votes({ answer }: VotesPropsType) {
       >
         Upvote
       </button>
-      <span className={styles.count}>{upvoteCount}</span>
+      <span className={styles.count}>{upvoteCount - downvoteCount}</span>
       <button
         disabled={buttonsDisabled}
         className={getButtonStyle(actions.downvote)}
@@ -190,7 +190,6 @@ export default function Votes({ answer }: VotesPropsType) {
       >
         Downvote
       </button>
-      <span className={styles.count}>{downvoteCount}</span>
     </div>
   );
 }

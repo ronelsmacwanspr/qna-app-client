@@ -26,7 +26,7 @@ function AnswerCard({ answerId }: AnswerCardPropsType) {
 
   return (
     <div className={styles.wrapper}>
-      <UserCard userName={answer.user.name} datePosted={answer.datePosted} />
+      {/* <UserCard userName={answer.user.name} datePosted={answer.datePosted} /> */}
       <div className={styles.answerWithVotes}>
         <div>
           <div>{answer.description}</div>
@@ -34,6 +34,7 @@ function AnswerCard({ answerId }: AnswerCardPropsType) {
           <Votes answer={answer} />
         </div>
       </div>
+      <UserCard userName={answer.user.name} datePosted={answer.datePosted} />
     </div>
   );
 }

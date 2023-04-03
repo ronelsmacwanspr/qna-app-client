@@ -1,41 +1,52 @@
-.questionTitleWrapper {
-  font-size: 1.2rem;
-  font-weight: 550;
-  display: flex;
-  align-items: baseline;
+.title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  /* display: flex;
+  align-items: baseline; */
 }
 
 .landingPageWrapper {
   padding: 24px;
   font-family: "Manrope", sans-serif;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.description {
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding-bottom: 12px;
+}
+
+.descCardWrapper {
   display: flex;
   flex-direction: column;
+  /* margin: auto;
+  max-width: 60ch; */
+  /* padding: 12px; */
 }
 
-.landingPageDescriptionWrapper {
-  padding: 12px;
-}
-
-.hr {
-  margin-bottom: 24px;
-}
-
-.titleText {
+/* .titleText {
   margin: auto;
-}
+} */
 
 .answerPortion {
   --padding: 12px;
   display: flex;
   flex-direction: column;
   padding: var(--padding);
-  width: min(55ch, 100% - calc(2 * var(--padding)));
-  margin-left: auto;
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom: 24px;
+  align-items: center;
   gap: 24px;
   --padding-for-answer: 12px;
   --border-for-answer: 1px;
   --border-radius-for-answer: 10px;
+}
+
+.questionSection {
+  margin: auto;
+  max-width: 60ch;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
 }

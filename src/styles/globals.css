@@ -2,6 +2,12 @@
   background-color: red;
 } */
 
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+} */
+
 body {
   margin: 0;
   background-color: rgb(241, 242, 242);

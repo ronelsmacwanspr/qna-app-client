@@ -40,11 +40,17 @@ export const GET_FIRST_N_ANSWERS_FOR_QUESTIONID = gql`
   }
 `;
 
-export const GET_QUESTION_TITLE_AND_DESCRIPTION = gql`
+export const GET_QUESTION_TITLE_DESCRIPTION_USER = gql`
   query ($questionId: ID!) {
     question(id: $questionId) {
       title
+      id
       description
+      datePosted
+      user {
+        name
+        id
+      }
     }
   }
 `;
@@ -55,8 +61,14 @@ export const GET_QUESTION_FROM_ID = gql`
       description
       title
       id
+      datePosted
       answers {
         id
+      }
+      user {
+        name
+        id
+        from
       }
     }
   }

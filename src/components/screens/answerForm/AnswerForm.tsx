@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./styles.module.css";
 import SubmitButton from "../../submitButton";
+import UserCard from "../questionLandingPage/userCard/UserCard";
 
 import { useMutation, useLazyQuery, useQuery } from "@apollo/client";
 import {
   GET_LOGGED_IN_USER,
   ADD_ANSWER,
-  GET_QUESTION_TITLE_AND_DESCRIPTION,
+  GET_QUESTION_TITLE_DESCRIPTION_USER,
 } from "../../../queries";
 
 export default function AnswerForm() {
@@ -25,7 +26,7 @@ export default function AnswerForm() {
   const [
     getQuestion,
     { data: questionData, error: questionError, loading: questionLoading },
-  ] = useLazyQuery(GET_QUESTION_TITLE_AND_DESCRIPTION);
+  ] = useLazyQuery(GET_QUESTION_TITLE_DESCRIPTION_USER);
 
   const router = useRouter();
 
@@ -33,13 +34,15 @@ export default function AnswerForm() {
     if (router.isReady) {
       getQuestion({ variables: { questionId: router.query.qid } });
     }
-  }, [router.isReady]);
-
-  // let user = getUser();
+  }, []);
 
   const questionTitle = questionData?.question?.title,
     questionDescription = questionData?.question?.description,
-    questionId = questionData?.question?.id;
+    questionId = questionData?.question?.id,
+    userName = questionData?.question?.user?.name,
+    datePosted = questionData?.question?.datePosted;
+
+  console.log("ques-data", questionData);
 
   async function handleSubmit(): Promise<boolean> {
     console.log("userData in handle submit", userData);
@@ -56,7 +59,6 @@ export default function AnswerForm() {
     const user = userData.loggedInUser;
 
     const stringArray = value.split(" ").filter((item) => item != "");
-    // console.log(stringArray);
     let answerDescription = "";
 
     for (let i = 0; i < stringArray.length; ++i) {
@@ -75,9 +77,11 @@ export default function AnswerForm() {
 
     const inputAnswer = {
       userId: user.id,
-      questionId: questionId,
+      questionId: questionData.question.id,
       description: answerDescription,
     };
+
+    console.log("input-ans", inputAnswer);
 
     await addAnswer({ variables: { inputAnswer } });
 
@@ -114,12 +118,17 @@ export default function AnswerForm() {
           {questionLoading ? <i>Loading title..</i> : questionTitle}
         </div>
 
-        <div>
+        <div className={styles.description}>
           {questionLoading ? (
             <i>Loading description...</i>
           ) : (
             questionDescription
           )}
+        </div>
+
+        <div>
+          <i>Asked By:</i>
+          <UserCard userName={userName} datePosted={datePosted}></UserCard>
         </div>
 
         <div className={styles.inputWrapper}>
@@ -129,12 +138,13 @@ export default function AnswerForm() {
             onChange={(e) => setValue(e.target.value)}
           ></textarea>
         </div>
-
-        <SubmitButton
-          handleSubmit={handleSubmit}
-          successMessage="Yeah! Answer posted"
-          name="POST ANSWER"
-        />
+        <div className={styles.buttonWrapper}>
+          <SubmitButton
+            handleSubmit={handleSubmit}
+            successMessage="Yeah! Answer posted"
+            name="Post Answer"
+          />
+        </div>
       </main>
     </div>
   );

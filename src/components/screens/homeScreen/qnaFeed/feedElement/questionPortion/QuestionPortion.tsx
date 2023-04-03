@@ -2,7 +2,7 @@ import QuestionDescription from "./questionDescription";
 import QuestionTitle from "./questionTitle";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
-import { GET_QUESTION_TITLE_AND_DESCRIPTION } from "../../../../../../queries";
+import { GET_QUESTION_TITLE_DESCRIPTION_USER } from "../../../../../../queries";
 import { useRouter } from "next/router";
 import styles from "./styles.module.css";
 
@@ -13,7 +13,7 @@ const QuestionPortion = ({ questionId }: QuestionPortionProps) => {
 
   const router = useRouter();
   const { data, loading, error } = useQuery(
-    GET_QUESTION_TITLE_AND_DESCRIPTION,
+    GET_QUESTION_TITLE_DESCRIPTION_USER,
     {
       variables: { questionId },
     }
