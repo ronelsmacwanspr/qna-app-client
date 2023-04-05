@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { GET_FIRST_N_ANSWERS_FOR_QUESTIONID } from "../../queries";
-import { AnswerType } from "../../globalClasses/Answer";
+import { GET_FIRST_N_ANSWERS_FOR_QUESTIONID } from "../../../../../../queries";
+import { AnswerType } from "../../../../../../globalClasses/Answer";
 import AnswerDescription from "./answerDescription";
-import Votes from "../votes";
+import Votes from "../../../../../votes";
 import styles from "./styles.module.css";
 
 type AnswerPortionProps = {
@@ -46,7 +46,7 @@ const AnswerPortion = ({
 
   return answerData.question.firstNAnswers.map(
     (answer: AnswerType, index: number) => (
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} key={answer.id}>
         <div className={styles.answerTopInfo}>Top Answer:</div>
         <div className={styles.answerWithVotes}>
           {clampDescription ? (

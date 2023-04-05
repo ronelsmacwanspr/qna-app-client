@@ -1,6 +1,10 @@
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 type SubmitButtonPropsType = {
   handleSubmit: () => boolean | Promise<boolean>;
@@ -16,19 +20,20 @@ export default function SubmitButton({
   const router = useRouter();
 
   return (
-    <Button
-      size="medium"
-      variant="contained"
-      // className={styles.button}
-      onClick={async () => {
-        const success = await handleSubmit();
-        if (success) {
-          alert(successMessage);
-          router.push("/");
-        }
-      }}
-    >
-      {name}
-    </Button>
+    <Box>
+      <Button
+        size="medium"
+        variant="contained"
+        onClick={async (e) => {
+          const res = await handleSubmit();
+          if (res) {
+            alert(successMessage);
+            router.push("/feed");
+          }
+        }}
+      >
+        {name}
+      </Button>
+    </Box>
   );
 }

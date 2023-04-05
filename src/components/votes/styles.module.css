@@ -4,6 +4,7 @@
   width: 100%;
   justify-content: space-between;
   width: fit-content;
+  align-items: center;
 }
 
 .upvote,

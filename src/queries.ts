@@ -142,10 +142,12 @@ export const GET_LOGGEDIN_USER_PROFILE_FIELDS = gql`
         id
         description
         questionId
+        datePosted
       }
       questions {
         id
         title
+        datePosted
       }
     }
   }

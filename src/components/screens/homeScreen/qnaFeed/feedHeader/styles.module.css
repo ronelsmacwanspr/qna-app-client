@@ -2,7 +2,10 @@
   background-color: white;
   display: flex;
   justify-content: space-between;
-  border: 1px solid#4a4a42;
+  /* border-style: var(--root-border-style); */
+  /* border-width: var(--root-border-width); */
+  /* border-color: var(--root-border-color); */
+
   display: flex;
   align-items: center;
   position: sticky;
@@ -14,6 +17,7 @@
   padding: 24px;
   font-size: 1.75rem;
   text-transform: capitalize;
+  z-index: 1;
 }
 
 .leftHeader {

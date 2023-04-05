@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 import { memo } from "react";
 
-import AnswerPortion from "../../../../answerPortion/AnswerPortion";
+import AnswerPortion from "./answerPortion/AnswerPortion";
 import QuestionPortion from "./questionPortion";
 import { useRouter } from "next/router";
 

@@ -1,15 +1,12 @@
-import UserDetail from "./userDetail";
-import Contribution from "./userDetail/contribution";
-
-import styles from "./styles.module.css";
-
 import { GET_LOGGEDIN_USER_PROFILE_FIELDS } from "../../../queries";
 import { useQuery } from "@apollo/client";
-import { USER_PROFILE_FIELDS, UserKeys } from "../../../constants";
-import { QuestionType } from "../../../globalClasses/Question";
-import { AnswerType } from "../../../globalClasses/Answer";
+import DetailsCard from "./detailsCard";
+import { Box } from "@mui/material";
+import Link from "next/link";
+import QnAContribution from "./QnAContribution";
+import HomeButton from "../../homeButton";
 
-export default function UserProfile() {
+const UserProfile = () => {
   const {
     data: userData,
     loading: userLoading,
@@ -17,61 +14,63 @@ export default function UserProfile() {
   } = useQuery(GET_LOGGEDIN_USER_PROFILE_FIELDS);
 
   const user = userData?.loggedInUser;
-  let questionsContribution = null,
-    answersContribution = null;
-  let render: JSX.Element[] = [];
 
-  if (user) {
-    console.log("user", user);
-    for (let _key of USER_PROFILE_FIELDS.primitiveFields) {
-      render.push(
-        <UserDetail
-          key={_key}
-          name={USER_PROFILE_FIELDS.keysLabel[_key]}
-          value={user[_key] as number | string}
-        />
-      );
-    }
-
-    // MAKE QUESTIONS ARRAY
-    questionsContribution = user.questions.map((question: QuestionType) => ({
-      href: { pathname: "/q/[qid]", query: { qid: question.id } },
-      text: question.title,
-    }));
-
-    console.log("q-contri", questionsContribution);
-
-    answersContribution = user.answers.map((answer: AnswerType) => ({
-      href: { pathname: "/q/[qid]", query: { qid: answer.questionId } },
-      text: answer.description,
-    }));
-
-    console.log("a-contri", answersContribution);
+  if (userFetchingError) {
+    return <p>Something went wrong! {userFetchingError.message}</p>;
   }
 
-  if (userLoading) {
-    return <p>Fetching your details. Please wait...</p>;
-  }
+  console.log("user in profile page", user);
 
   return (
-    <main>
-      <div className={styles.wrapper}>
-        <img className={styles.icon} src="/user.png" alt="User icon" />
+    <Box>
+      <Box
+        component="header"
+        sx={{ marginBottom: "12px", paddingLeft: "24px", paddingTop: "24px" }}
+      >
+        {" "}
+        <HomeButton />
+      </Box>
+      <Box sx={{ padding: "24px" }}>
+        <Box component="section" sx={{ display: "flex", gap: "12px" }}>
+          <Box
+            sx={{
+              flexGrow: "0.8",
+              display: "flex",
+              flexDirection: "column",
+              gap: "24px",
+            }}
+          >
+            <DetailsCard
+              name={user?.name}
+              bio={user?.bio}
+              from={user?.from}
+              loading={userLoading}
+            />
 
-        <div className={styles.userDetails}>
-          {render}
+            <QnAContribution user={user} loading={userLoading} />
+          </Box>
+          <Box
+            component="aside"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              fontSize: "1.4rem",
+            }}
+          >
+            <Link href="/askQuestion">
+              <Box component="span"> Post Question</Box>
+            </Link>
 
-          <Contribution
-            type={UserKeys.questionIds}
-            contribution={questionsContribution}
-          />
-
-          <Contribution
-            type={UserKeys.answerIds}
-            contribution={answersContribution}
-          />
-        </div>
-      </div>
-    </main>
+            <Link href="/answer">
+              {" "}
+              <Box component="span"> Post Answer</Box>
+            </Link>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
-}
+};
+
+export default UserProfile;

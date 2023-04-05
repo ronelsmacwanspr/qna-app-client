@@ -3,6 +3,10 @@ import { useState } from "react";
 import { VOTE_ACTIONS as actions } from "../../constants";
 
 import { AnswerType } from "../../globalClasses/Answer";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import IconButton from "@mui/material/IconButton";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 
 import { useQuery } from "@apollo/client";
 import {
@@ -14,6 +18,7 @@ import {
 } from "../../queries";
 
 import { useMutation } from "@apollo/client";
+import { Button } from "@mui/material";
 
 type VotesPropsType = {
   answer: AnswerType;
@@ -172,6 +177,29 @@ export default function Votes({ answer }: VotesPropsType) {
       </p>
     );
   }
+
+  return (
+    <div className={styles.voteWrapper}>
+      <Button
+        disabled={buttonsDisabled}
+        onClick={handleUpvoteClick}
+        startIcon={
+          selected === actions.upvote ? <ThumbUpIcon /> : <ThumbUpOffAltIcon />
+        }
+        sx={{}}
+      >
+        Upvote
+      </Button>
+      <span className={styles.count}> {upvoteCount}</span>
+      <IconButton
+        disabled={buttonsDisabled}
+        onClick={handleDownvoteClick}
+        color={selected === actions.downvote ? "error" : "default"}
+      >
+        <ThumbDownIcon />
+      </IconButton>
+    </div>
+  );
 
   return (
     <div className={styles.voteWrapper}>
