@@ -1,12 +1,13 @@
 import { GET_LOGGEDIN_USER_PROFILE_FIELDS } from "../../../queries";
 import { useQuery } from "@apollo/client";
 import DetailsCard from "./detailsCard";
-import { Box } from "@mui/material";
-import Link from "next/link";
+import { Box, Button } from "@mui/material";
 import QnAContribution from "./QnAContribution";
 import HomeButton from "../../homeButton";
+import { useRouter } from "next/router";
 
 const UserProfile = () => {
+  const router = useRouter();
   const {
     data: userData,
     loading: userLoading,
@@ -20,6 +21,12 @@ const UserProfile = () => {
   }
 
   console.log("user in profile page", user);
+
+  const handleLogout = () => {
+    if (typeof window === "undefined") return;
+    sessionStorage.removeItem("token_id");
+    router.push("/userLogin");
+  };
 
   return (
     <Box>
@@ -58,14 +65,20 @@ const UserProfile = () => {
               fontSize: "1.4rem",
             }}
           >
-            <Link href="/askQuestion">
-              <Box component="span"> Post Question</Box>
-            </Link>
+            <Button
+              variant="outlined"
+              onClick={() => router.push("/askQuestion")}
+            >
+              Post Question
+            </Button>
 
-            <Link href="/answer">
-              {" "}
-              <Box component="span"> Post Answer</Box>
-            </Link>
+            <Button variant="outlined" onClick={() => router.push("/answer")}>
+              Post Answer
+            </Button>
+
+            <Button variant="outlined" onClick={handleLogout}>
+              Logout
+            </Button>
           </Box>
         </Box>
       </Box>

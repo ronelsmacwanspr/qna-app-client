@@ -143,6 +143,7 @@ export default function AnswerForm() {
             handleSubmit={handleSubmit}
             successMessage="Yeah! Answer posted"
             name="Post Answer"
+            loading={postingAnswer || userLoading || questionLoading}
           />
         </div>
       </main>

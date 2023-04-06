@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const cache = new InMemoryCache();
 
   const client = new ApolloClient({
-    uri: "http://localhost:4000/",
+    uri: "http://localhost:4001/",
     cache: cache,
     connectToDevTools: true,
     headers: {

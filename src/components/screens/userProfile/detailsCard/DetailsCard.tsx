@@ -1,4 +1,5 @@
 import { Avatar, Box } from "@mui/material";
+import HalfOpacityWrapper from "../HalfOpacityWrapper";
 
 type DetailsCardProps = {
   name: string;
@@ -17,7 +18,7 @@ const DetailsCard = ({ name, bio, from, loading }: DetailsCardProps) => {
   return (
     <Box sx={{ display: "flex" }}>
       <Avatar sx={{ height: "120px", width: "120px", maxWidth: "100%" }}>
-        {loadingFallBack(name, loading)}
+        {loading ? "User.." : name}
       </Avatar>
       <Box
         sx={{
@@ -32,13 +33,25 @@ const DetailsCard = ({ name, bio, from, loading }: DetailsCardProps) => {
           component="span"
           sx={{ fontSize: "1.4rem", maxWidth: "50ch", fontWeight: "bold" }}
         >
-          {loadingFallBack(name, loading)}
+          {loading ? (
+            <HalfOpacityWrapper component="span">Name...</HalfOpacityWrapper>
+          ) : (
+            name
+          )}
         </Box>
         <Box component="span" sx={{ fontSize: "1rem", maxWidth: "50ch" }}>
-          {loadingFallBack(from, loading)}
+          {loading ? (
+            <HalfOpacityWrapper component="span">From...</HalfOpacityWrapper>
+          ) : (
+            from
+          )}
         </Box>
         <Box component="span" sx={{ fontSize: "1rem", maxWidth: "50ch" }}>
-          {loadingFallBack(bio, loading)}
+          {loading ? (
+            <HalfOpacityWrapper component="span">Bio...</HalfOpacityWrapper>
+          ) : (
+            bio
+          )}
         </Box>
       </Box>
     </Box>

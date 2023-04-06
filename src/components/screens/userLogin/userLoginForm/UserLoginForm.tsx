@@ -101,6 +101,7 @@ const UserLoginForm = () => {
           handleSubmit={handleSubmit}
           successMessage="You are successfully registered!"
           name="Register"
+          loading={loadingToUpdateUser}
         />
       </div>
     </main>

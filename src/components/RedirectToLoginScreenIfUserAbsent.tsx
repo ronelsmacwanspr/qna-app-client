@@ -15,7 +15,17 @@ export const RedirectToLoginScreenIfUserAbsent = ({
     error: userError,
   } = useQuery(GET_LOGGED_IN_USER);
 
-  console.log("user from server", userData);
+  console.log("user from server", userData, "loading", userLoading);
+  console.log("router-ready", router.isReady);
+
+  const { pathname } = router;
+  const userId = userData?.loggedInUser?.id;
+  console.log("userId", userId);
+
+  if (typeof userId !== "number" && !userLoading) {
+    console.log("pushin to router the login page");
+    if (pathname !== "/userLogin" && router.isReady) router.push("/userLogin");
+  }
 
   if (userLoading) {
     return <h2>Loading...</h2>;
@@ -27,15 +37,6 @@ export const RedirectToLoginScreenIfUserAbsent = ({
         Something went wrong! <i>{userError.message}</i>
       </h2>
     );
-  }
-
-  const { pathname } = router;
-  const userId = userData?.loggedInUser?.id;
-  console.log("userId", userId);
-
-  if (typeof userId !== "number") {
-    console.log("pushin to router the login page");
-    if (pathname !== "/userLogin") router.push("/userLogin");
   }
 
   return <div>{children}</div>;

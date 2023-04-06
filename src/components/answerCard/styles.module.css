@@ -13,6 +13,7 @@
   border-width: var(--root-border-width);
   border-color: var(--root-border-color);
   border-style: var(--root-border-style);
+  white-space: pre-wrap;
 }
 
 .wrapper {
